@@ -10,7 +10,6 @@ data "template_file" "script" {
   }
 }
 
-
 variable "project" {
   default = "fiap-lab"
 }
@@ -39,10 +38,8 @@ resource "random_shuffle" "random_subnet" {
   result_count = 1
 }
 
-
-
 resource "aws_elb" "web" {
-  name = "hackton-elb"
+  name = "hackton-elb${terraform.workspace}"
 
   subnets         = data.aws_subnet_ids.all.ids
   security_groups = ["${aws_security_group.allow-ssh.id}"]
